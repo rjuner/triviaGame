@@ -1,0 +1,17 @@
+#question{
+	background-color: yellow;
+	height: 100px;
+	text-align: center;
+}
+
+#leftBox{
+	background-color: grey;
+	height: 300px;
+	width: 50%;
+}
+
+#rightBox{
+	background-color: pink;
+	height: 300px;
+	width: 50%;
+}
