@@ -7,40 +7,76 @@ var questions = [
 	{
 		question: "Where do bananas grow?", 
 		choices: [
-			"On Trees", "On Herbs", "Under Water", "In the Desert"
-		],
+			"On Trees", "On Herbs", "Under Water", "In the Desert"],
 		correct: "On Herbs"
 	},
 	{
 		question: "What is Michael J Fox&apos;s middle name?", 
-		choices: ["Joseph", "Andrew", "Michael", "James"
-		],
+		choices: ["Joseph", "Andrew", "Michael", "James"],
 		correct: "Andrew"
+	}, 
+	{
+		question: "When did Nelson Mandela die?", 
+		choices: ["He's still alive", "2013", "1980", "1999"],
+		correct: "2013"
 	}
 ];
+
 var num = 0;
+var answered = false; 
+var qPosition = 0;
 
 $("#question").html(questions[num].question);
-trivia();
 
-function trivia(){
+function buttonGenerate(){
 	for(var i = 0; i < questions[num].choices.length; i++){
 		var $newButton = $("<button>");
-		$newButton.attr("id", "q"+i);
-		$newButton.attr("data-answer", questions[num].choices[i]);
-		$newButton.html(questions[num].choices[i]);
+		$newButton.attr("id", "q" + i);
+		$newButton.html(questions[num].choices[i]); 
 		$("#rightBox").append($newButton);
-		$("#q"+i).on("click", function(){
-			if($(this).attr("data-answer") === questions[num].correct){
-				console.log("correct!");
-				num++;
-			} else {
-				console.log("wrong...");
-			}
-
-		});
 	}
-}
+};
+
+buttonGenerate();
+
+$("#nextQuestion").on("click", function(event){
+	num++;
+	$("#question").html(questions[num].question);
+	var answered = true;
+	console.log(answered);
+	if(answered = true){
+	$("#nextQuestion").hide("slow");
+	}
+	qPosition++;
+	console.log(qPosition);
+	$("#rightBox").empty();
+	buttonGenerate();
+})
+
+
+
+// trivia();
+
+// function trivia(){
+// 	for(var i = 0; i < questions[num].choices.length; i++){
+// 		var $newButton = $("<button>");
+// 		$newButton.attr("id", "q"+i);
+// 		$newButton.attr("data-answer", questions[num].choices[i]);
+// 		$newButton.html(questions[num].choices[i]);
+// 		$("#rightBox").append($newButton);
+// 		$("#q"+i).on("click", function(){
+// 			if($(this).attr("data-answer") === questions[num].correct){
+// 				console.log("correct!");
+// 				num++;
+// 			} else {
+// 				console.log("wrong...");
+// 			}
+
+// 		});
+// 	}
+// }
+
+// console.log(num);
 
 // $("#rightBox").on("click", function(event){
 // 	console.log($(event.target));
