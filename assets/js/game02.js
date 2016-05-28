@@ -47,12 +47,14 @@ $("#nextQuestion").on("click", function(event){
 	if(answered = true){
 	$("#nextQuestion").hide("slow");
 	}
+
 	qPosition++;
 	console.log(qPosition);
 	$("#rightBox").empty();
 	buttonGenerate();
 })
 
+$("#nextQuestion").show("slow");
 
 
 // trivia();
