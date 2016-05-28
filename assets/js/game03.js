@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 //DECLARING GLOBAL VARIABLES
 //=================================================================
-var questions, questionIndex, timeUp, correct, incorrect, clock;
+var questions, questionIndex, timeUp, correct, incorrect, clock, countdown;
 
 //FUNCTIONS
 //=================================================================
@@ -23,8 +23,19 @@ function selectAnswer(){
 	});
 }
 
+function decrement(){
+	//subtracts from countdown
+	countdown--;
+	console.log(countdown);
+	$("#clock").show().html("TIME LEFT: " + countdown);
+} 
+
 function visualCounter(){
-	clock = setInterval()
+	countdown = 30;
+
+	//will go to "foo" every second (1000)
+	clock = setInterval(decrement, 1000);
+
 }
 
 function initalState(){
@@ -51,7 +62,7 @@ function initalState(){
 		{	
 			q: "Which quote is correct?", 
 			choices: ["Luke, I am your father.", "Do you feel lucky, punk?", "Toto, I don't think we're in Kansas anymore.", "Frankly, my dear, I don't give a damn."], 
-			correct: "Frankly, my dear, I don’t give a damn.", 
+			correct: "Frankly, my dear, I don't give a damn.", 
 			reason: "THIS IS THE REASON FOR WHATEVER #4"
 		}, 
 		{
@@ -87,7 +98,7 @@ function initalState(){
 }
 
 function next(){
-	timeUp = setTimeout(outofTime, 1000 * 5);
+	timeUp = setTimeout(outofTime, 1000 * 30);
 	questionIndex++;
 	askQuestion();
 	makeButtons();
@@ -97,6 +108,7 @@ function next(){
 function askQuestion(){
 	$("#questionArea").html(questions[questionIndex].q);
 	$("#flavorText").hide();
+	visualCounter();
 }
 
 function makeButtons(){
@@ -112,10 +124,12 @@ function wrongScreen(){
 
 	$("#buttonHolder").hide().off("click");
 
-	$("#flavorText").show().html("WRONG! <br>" + "Here's why: <br>" + questions[questionIndex].reason);
+	$("#flavorText").show().html("WRONG! <br>"  + "The answer is: " + questions[questionIndex].correct + "<br>Here's why: <br>" + questions[questionIndex].reason);
 
 	// in 5 seconds it will go to next question. 
 	timeUp = setTimeout(next, 1000 * 5);
+	clearInterval(clock);
+	$("#clock").hide();
 }
 
 function outofTime(){
@@ -123,10 +137,13 @@ function outofTime(){
 
 	$("#buttonHolder").hide().off("click");
 
-	$("#flavorText").show().html("OUT OF TIME! <br>" + "Here's why: <br>" + questions[questionIndex].reason);
+	$("#flavorText").show().html("OUT OF TIME! <br>" + "The answer is: " + questions[questionIndex].correct + "<br>Here's why: <br>" + questions[questionIndex].reason);
 
 	// in 5 seconds it will go to next question. 
 	timeUp = setTimeout(next, 1000 * 5);
+
+	clearInterval(clock);
+	$("#clock").hide();
 }
 
 function rightScreen(){
@@ -134,10 +151,13 @@ function rightScreen(){
 
 	$("#buttonHolder").hide().off("click");
 
-	$("#flavorText").show().html("YESSSS! <br>" + "Here's why: <br>" + questions[questionIndex].reason);
+	$("#flavorText").show().html("YESSSS! <br>" + "The answer is: " + questions[questionIndex].correct + "<br>Here's why: <br>" + questions[questionIndex].reason);
 
 	// in 5 seconds it will go to next question. 
 	timeUp = setTimeout(next, 1000 * 5);
+	clearInterval(clock);
+	$("#clock").hide();
+
 }
 
 initalState();
