@@ -98,11 +98,16 @@ function initalState(){
 }
 
 function next(){
-	timeUp = setTimeout(outofTime, 1000 * 30);
+	timeUp = setTimeout(outofTime, 1000 * 5);
 	questionIndex++;
-	askQuestion();
-	makeButtons();
-	selectAnswer();
+
+	if(questionIndex < questions.length){
+		askQuestion();
+		makeButtons();
+		selectAnswer();
+	}else{
+		endScreen();
+	}
 }
 
 function askQuestion(){
@@ -127,7 +132,7 @@ function wrongScreen(){
 	$("#flavorText").show().html("WRONG! <br>"  + "The answer is: " + questions[questionIndex].correct + "<br>Here's why: <br>" + questions[questionIndex].reason);
 
 	// in 5 seconds it will go to next question. 
-	timeUp = setTimeout(next, 1000 * 5);
+	timeUp = setTimeout(next, 1000 * 2);
 	clearInterval(clock);
 	$("#clock").hide();
 }
@@ -140,7 +145,7 @@ function outofTime(){
 	$("#flavorText").show().html("OUT OF TIME! <br>" + "The answer is: " + questions[questionIndex].correct + "<br>Here's why: <br>" + questions[questionIndex].reason);
 
 	// in 5 seconds it will go to next question. 
-	timeUp = setTimeout(next, 1000 * 5);
+	timeUp = setTimeout(next, 1000 * 2);
 
 	clearInterval(clock);
 	$("#clock").hide();
@@ -154,9 +159,16 @@ function rightScreen(){
 	$("#flavorText").show().html("YESSSS! <br>" + "The answer is: " + questions[questionIndex].correct + "<br>Here's why: <br>" + questions[questionIndex].reason);
 
 	// in 5 seconds it will go to next question. 
-	timeUp = setTimeout(next, 1000 * 5);
+	timeUp = setTimeout(next, 1000 * 2);
 	clearInterval(clock);
 	$("#clock").hide();
+
+}
+
+function endScreen(){
+	$("#flavorText").show().html("THANKS FOR PLAYING!</br>" + "<button id='reset'>Reset?</button>");
+	$("#reset").on("click", function(){
+	});
 
 }
 
